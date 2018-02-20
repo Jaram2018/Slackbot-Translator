@@ -1,14 +1,18 @@
 from enum import Enum
 import os
 
+credentials = None
+with open('credentials.json', 'r') as fr:
+    credentials = json.loads(fr.read())
+
 # For using Heroku
 class SlackUrls(Enum):
     base_url = 'https://slack.com/api/rtm.connect?token='
-    token = os.environ.get('SLACK_BOT_TOKEN')
+    token = credentials['SLACKBOT_TOKEN']
 
 class NaverUrls(Enum):
-    client_id = os.environ.get('PAPAGO_CLIENT_ID')
-    client_secret = os.environ.get('PAPAGO_CLIENT_SECRET')
+    client_id = credentials['PAPAGO_CLIENT_ID']
+    client_secret = credentials['PAPAGO_CLIENT_SECRET']
     """
     < 네이버 파파고 API >
     1. 네이버 개발자 센터 파파고 API 신청 (https://developers.naver.com/apps/#/register?api=ppg_n2mt).
